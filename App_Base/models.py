@@ -1,4 +1,5 @@
 from datetime import datetime
+from tabnanny import verbose
 
 from django.db import models
 # Create your models here.
@@ -7,6 +8,10 @@ from django.db import models
 ## Clases Models ##
 class Estado_Tracking(models.Model):
     estado_tracking = models.CharField(max_length=100, verbose_name="Estado")
+
+    class Meta:
+        verbose_name = "Tracking"
+        verbose_name_plural = "Estado Tracking"
     
     def __str__(self):
         return self.estado_tracking
@@ -14,6 +19,10 @@ class Estado_Tracking(models.Model):
 
 class Motivo_Fallo(models.Model):
     motivo_fallo = models.CharField(max_length=200, unique=True)
+
+    class Meta:
+        verbose_name = "Fallo"
+        verbose_name_plural = "Motivo de Fallo"
 
     def __str__(self):
         return self.motivo_fallo
@@ -25,8 +34,13 @@ class Cliente(models.Model):
     email = models.EmailField(max_length=50, null=True, blank=True, verbose_name="Email")
     estado = models.BooleanField(default=True, verbose_name="Estado de Cliente")
 
+    class Meta:
+        verbose_name = "Cliente"
+        verbose_name_plural = "Clientes"
+
     def __str__(self):
         return self.cliente_name
+
 ## ---end---- ##
 
 class Paquete(models.Model):
@@ -34,25 +48,54 @@ class Paquete(models.Model):
     direccion_des = models.CharField(max_length=200, verbose_name="Dirección Destino")
     telefono_des = models.CharField(max_length=15, verbose_name="Teléfono")
     nombre_des = models.CharField(max_length=200, unique=True, verbose_name="Nombre Destino")
-    peso = models.DecimalField(default=0.00, max_digits=5, decimal_places=2, verbose_name="Peso")
+    peso = models.DecimalField(default=0.00, max_digits=10, decimal_places=2, verbose_name="Peso")
     altura =  models.DecimalField(default=0.00, max_digits=5, decimal_places=2, verbose_name="Altura")
     estado = models.ForeignKey(Estado_Tracking, on_delete=models.CASCADE, verbose_name="Estado")
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, verbose_name="Cliente")
-    tipo_paquete = models.CharField(max_length=25)
+    tipo_paquete = models.CharField(max_length=25, editable=False )
+
+    def save(self, **kwargs):
+        peso = self.peso
+        if peso > 0 and peso < 1000:
+            self.tipo_paquete = "P"
+        if peso >= 1000 and peso < 3000:
+            self.tipo_paquete = "M"
+        if peso >= 3000:
+            self.tipo_paquete = "G"
+        return super(Paquete, self).save()
+
+
+    class Meta:
+        verbose_name = "Paquete"
+        verbose_name_plural = "Paquetes"
+
 
     def __str__(self):
         return self.tracking
 
 class Plantilla(models.Model):
-    fecha = models.DateField(default=datetime.now)
+    fecha = models.DateTimeField(auto_now_add=True)
     posicion = models.CharField(max_length=200)
+
+    class Meta:
+        verbose_name = "Plantilla"
+        verbose_name_plural = "Plantilla"
+        ordering = ['-fecha']
 
 
 class Item(models.Model):
     num_platilla = models.ForeignKey(Plantilla, on_delete=models.CASCADE)
     paquete = models.ManyToManyField(Paquete)
     posicion = models.CharField(max_length=150)
-    Motivo_Fallo = models.ForeignKey(Motivo_Fallo, on_delete=models.CASCADE)
+    motivo_fallo = models.ForeignKey(Motivo_Fallo, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = "Item"
+        verbose_name_plural = "Items de Plantilla"
+    
+    def __str__(self):
+        return self.posicion
+
 
 
 
