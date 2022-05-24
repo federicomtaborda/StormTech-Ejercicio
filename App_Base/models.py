@@ -84,10 +84,10 @@ class Plantilla(models.Model):
 
 
 class Item(models.Model):
-    num_platilla = models.ForeignKey(Plantilla, on_delete=models.CASCADE)
+    num_platilla = models.ForeignKey(Plantilla, on_delete=models.CASCADE, verbose_name="N° Plantilla")
     paquete = models.ManyToManyField(Paquete)
     posicion = models.CharField(max_length=150)
-    motivo_fallo = models.ForeignKey(Motivo_Fallo, on_delete=models.CASCADE)
+    motivo_fallo = models.ForeignKey(Motivo_Fallo, on_delete=models.CASCADE, verbose_name="Motivo de Fallo")
 
     class Meta:
         verbose_name = "Item"
@@ -95,11 +95,6 @@ class Item(models.Model):
     
     def __str__(self):
         return self.posicion
-
-
-
-
-
 
 
 

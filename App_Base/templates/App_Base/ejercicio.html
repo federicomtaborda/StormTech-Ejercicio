@@ -1,0 +1,74 @@
+{% extends "App_Base/base.html" %}
+
+    {% block content %}
+
+<div class="animate__animated animate__fadeIn">
+    <div class="container">
+        <div class="col-md-12">
+            <p class="text-center py-3 lead">Ejercicio a Realizar.</p>
+            <div class="py-4">
+                <h4>Ejercicio Django</h4>
+                <p> El ejercicio debe realizarse con python django en su última versión, se debe utilizar
+                    python 3 y se deberá entregar un link con acceso al repositorio para poder hacer un clon del
+                    proyecto, el cual deberá contar con los requerimientos a instalar en la virtual para testear.
+                </p>
+
+                <h4>Sistema Logística</h4>
+                <p>Un cliente necesita poder sistematizar los paquetes que le llegan al depósito, existen
+                    3 elementos bien identificados en esta parte: PAQUETE, PLANILLA, ITEM
+                    Un paquete tiene
+                </p>
+                    <ul>
+                        <li>tracking que es único</li>
+                        <li>dirección de destinatario</li>
+                        <li>telefono de destinatario</li>
+                        <li>nombre de destinatario</li>
+                        <li>peso</li>
+                        <li>altura</li>
+                        <li>estado (Los estados pueden ser “en deposito”, “en distribución”)</li>
+                        <li>cliente (modelarlo en una clase)</li>
+                        <li>tipo de paquete (no lo carga el usuario lo tiene que tomar el sistema según el peso
+                            que fue cargado)</li>
+                        <ul>
+                            <li>P peso menor 1000</li>
+                            <li>M peso menor 3000</li>
+                            <li>G todo lo demas</li>
+                        </ul>
+                    </ul>
+                <p>Una planilla tiene</p>
+                        <ul>
+                            <li>número de planilla</li>
+                            <li>fecha</li>
+                            <li>item de planilla (uno o muchos paquetes)</li>
+                            <p>*Estos ítems se verán en la pantalla de la planilla y se podrán agregar todos los
+                                necesarios en esta pantalla.</p>
+                            <li>crear una acción que permita elegir una planilla y pasar todos los paquetes “en
+                                depósito” a “en distribución”</li>
+                        </ul>
+                <p>Un ítem de planilla tiene:</p>
+                        <ul>
+                            <li>Un paquete</li>
+                            <li>Una plantilla</li>
+                            <li>una posición</li>
+                            <li>un motivo de fallo (a futuro se desea hacer estadística sobre Motivos de Fallo)</li>
+                        </ul>
+                <p>El sistema tiene que permitir crear o modificar paquetes. Al entrar a una planilla se debe
+                    poder agregar items de planilla.
+                </p>
+                <p>Agregar filtros y buscadores en las distintas pantallas que crea necesario.
+                    EXTRA: Una funcionalidad especial del sistema es que se debe permitir la carga masiva de
+                    paquetes a un recorrido (planillas), a partir de un CSV. (pantalla especial fuera del admin)
+                </p>
+                <p>Cualquier consulta o duda sobre lo indicado a desarrollar, enviar un mail a
+                    framos@stormtech.com.ar.<br>
+                    Se evaluará la solución planteada, en la cual se deberá justificar las resoluciones que se
+                    indiquen por el equipo evaluador.
+                </p>
+            </div>
+        </div>
+            
+    </div>
+</div>
+
+    {% endblock %}
+
