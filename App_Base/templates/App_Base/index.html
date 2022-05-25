@@ -10,10 +10,12 @@
                     <div class="mb-4">
                       <label class="form-label"><small>Ingrese número de plantilla</small></label>
                       <select class="form-select" name="plantilla" id="id_plantilla">
-                        <option selected>Seleccione una Plantilla</option>
-                        {% for item in plantillas %}
-                          <option value="{{item.pk}}">{{item.pk}}</option>
+                        <option selected>Seleccione N° Plantilla</option>
+
+                        {% for num_plantilla in plantillas %}
+                          <option value="{{plantilla.id}}">Plantilla: ( {{num_plantilla.pk}} )</option>
                         {% endfor%}
+                        
                       </select>
                     </div>
                     <div class="mb-4">
