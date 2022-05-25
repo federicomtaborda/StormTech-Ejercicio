@@ -15,8 +15,11 @@ class Estado_Tracking(models.Model):
     
     def __str__(self):
         return self.estado_tracking
+## ---end---- ##
 
 
+
+## Motivo Fallo Models ##
 class Motivo_Fallo(models.Model):
     motivo_fallo = models.CharField(max_length=200, unique=True)
 
@@ -27,6 +30,10 @@ class Motivo_Fallo(models.Model):
     def __str__(self):
         return self.motivo_fallo
 
+## ---end---- ##
+
+
+## ---Cliente Models---- ##
 class Cliente(models.Model):
     cliente_name = models.CharField(max_length=200, unique=True, verbose_name="Nombre de Cliente")
     telefono = models.CharField(max_length=15, null=False, blank=False, verbose_name="Teléfono")
@@ -43,6 +50,9 @@ class Cliente(models.Model):
 
 ## ---end---- ##
 
+
+
+## Paquete Models ##
 class Paquete(models.Model):
     tracking = models.CharField(max_length=100, unique=True, verbose_name="N° Tracking")
     direccion_des = models.CharField(max_length=200, verbose_name="Dirección Destino")
@@ -72,7 +82,11 @@ class Paquete(models.Model):
 
     def __str__(self):
         return self.tracking
+## ---end---- ##
 
+
+
+## Plantilla Models ##
 class Plantilla(models.Model):
     fecha = models.DateTimeField(auto_now_add=True)
     posicion = models.CharField(max_length=200)
@@ -82,9 +96,15 @@ class Plantilla(models.Model):
         verbose_name_plural = "Plantilla"
         ordering = ['-fecha']
 
+    def __str__(self):
+        return 'Plantilla n°: {}'.format(self.pk)
+## ---end---- ##
 
+
+
+## Item Models ##
 class Item(models.Model):
-    num_platilla = models.ForeignKey(Plantilla, on_delete=models.CASCADE, verbose_name="N° Plantilla")
+    num_plantilla = models.ForeignKey(Plantilla, on_delete=models.CASCADE, verbose_name="N° Plantilla")
     paquete = models.ManyToManyField(Paquete)
     posicion = models.CharField(max_length=150)
     motivo_fallo = models.ForeignKey(Motivo_Fallo, on_delete=models.CASCADE, verbose_name="Motivo de Fallo")
@@ -94,9 +114,9 @@ class Item(models.Model):
         verbose_name_plural = "Items de Plantilla"
     
     def __str__(self):
-        return self.posicion
+        return '{}'.format(self.num_plantilla.pk)
 
-
+## ---end---- ##
 
 
 
